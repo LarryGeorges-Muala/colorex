@@ -1,0 +1,539 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Level 2 | Colorex</title>
+	{% include 'colorex/base/base.html' %}
+</head>
+
+<body>
+<style>
+.block-sizes{
+	width: 50px;
+	height: 50px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid #cccccc;
+	margin: 1%; 
+	display: inline-block;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 900px){
+	.block-sizes{
+		width: 70px;
+		height: 70px;
+		margin: 2%; 
+	}
+	.game-timer-class{
+		position: static !important; 
+	}
+	#victory-block{
+		margin: 5% 10% 0 10% !important;
+	}
+	#victory-firework{
+		right: 0% !important;
+		top: -10px !important;
+	}
+}
+</style>
+
+{% include 'colorex/base/colorex_nav.html' %}
+
+<div style="text-align: center; margin: 5% 0 5% 0;">
+	<h1 style="width: 200px; margin: auto; border: 2px solid brown; padding: 1% 2%; border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Level 2</h1>
+	<div >
+		<img id="victory-firework" style="display: none; position: absolute; top: 5px; right: 32%; margin: auto;" src="{% static 'colorex/images/fireworks3.gif' %}">
+	</div>
+	<div id="victory-block" style="display: none; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color: brown; color: white; margin: 5% 30% 0 30%; padding: 3% 5%; border-radius: 7px;">
+		<h2>Conragtulations, You Won!<h2>
+		<h4> <span style="color: white;" class="glyphicon glyphicon-time"></span> <span id="winning-game-time"></span> s. </h4>
+	</div>
+	
+	<div id="next-level-block" style="display: none;">
+		<br>
+		<form action="{% url 'colorex:level_2' %}" method="POST"> 
+		{% csrf_token %}
+			<input type="hidden" name="time" id="time-capture" style="display: none;" >
+			<a href="/2" class="btn btn-primary">Replay this level <span class="glyphicon glyphicon-repeat"></span></a> 
+			<input type="submit" class="btn btn-danger" name="NEXT" value="Next Level"/>
+			<br>
+			<br>
+			<input type="submit" class="btn btn-info" name="LEVELS" value="See Levels"/>
+		</form>		
+		<br>
+		<br>
+	</div>
+</div>
+
+<div style="text-align: center; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+	<div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+	
+		<div style="padding: 1%;">
+			<div id="1" class="block-sizes idPasser" ></div>
+
+			<div id="2" class="block-sizes idPasser" ></div>
+
+			<div id="3" class="block-sizes idPasser" ></div>
+		</div>
+
+		<div style="padding: 1%;">
+			<div id="4" class="block-sizes idPasser" ></div>
+
+			<div id="5" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);" ></div>
+
+			<div id="6" class="block-sizes idPasser" ></div>
+		</div>
+
+		<div style="padding: 1%;">
+			<div id="7" class="block-sizes idPasser" ></div>
+
+			<div id="8" class="block-sizes idPasser" ></div>
+
+			<div id="9" class="block-sizes idPasser" ></div>
+		</div>
+	
+	</div>
+	
+</div>
+
+<div id="game-timer-container" style="">
+	<br>
+	<h5 class="game-timer-class" style="background-color: white; position: relative; top: -320px; right: 60px; float: right; text-align: center; width: 150px; border-radius: 0 10px 0 10px; border: 1px solid brown; padding: 1%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+		<span style="vertical-align: middle; color: brown;" class="glyphicon glyphicon-time"></span> <span id="game-timer"></span> s. <a style="float: right; text-decoration: none; color: brown; font-size: 24px;" href="/2" class="fa fa-undo"></a>
+	</h5>
+</div>
+
+<script>
+function winning(){
+
+	var winning_color = "rgb(255, 255, 0)";
+	
+	var victory_color = "rgb(165, 42, 42)";
+	
+	var selected_div_1 = "#1";
+	selected_div_1 = $(selected_div_1).css('backgroundColor');
+	
+	var selected_div_2 = "#2";
+	selected_div_2 = $(selected_div_2).css('backgroundColor');
+	
+	var selected_div_3 = "#3";
+	selected_div_3 = $(selected_div_3).css('backgroundColor');
+	
+	var selected_div_4 = "#4";
+	selected_div_4 = $(selected_div_4).css('backgroundColor');
+	
+	var selected_div_5 = "#5";
+	selected_div_5 = $(selected_div_5).css('backgroundColor');
+	
+	var selected_div_6 = "#6";
+	selected_div_6 = $(selected_div_6).css('backgroundColor');
+	
+	var selected_div_7 = "#7";
+	selected_div_7 = $(selected_div_7).css('backgroundColor');
+	
+	var selected_div_8 = "#8";
+	selected_div_8 = $(selected_div_8).css('backgroundColor');
+	
+	var selected_div_9 = "#9";
+	selected_div_9 = $(selected_div_9).css('backgroundColor');
+	
+	if ( selected_div_1 == winning_color && selected_div_2 == winning_color && selected_div_3 == winning_color && selected_div_4 == winning_color && selected_div_5 == winning_color && selected_div_6 == winning_color && selected_div_7 == winning_color && selected_div_8 == winning_color && selected_div_9 == winning_color ){
+		/*alert("You Won!");*/
+		
+		/* Fade in victory block */
+		$("#victory-block").fadeIn();
+		
+		$("#next-level-block").fadeIn();
+		
+		$("#victory-firework").fadeIn();
+		
+		/* Fade out game timer */
+		$("#game-timer-container").fadeOut();
+		
+		/* Setting Winning Time */
+		$("#winning-game-time").html($("#game-timer").html());
+		$("#time-capture").val($("#game-timer").html());
+	
+		/**/
+		
+		/* Change to victory color */
+		//$("#1").css("background-color", "brown");
+		//$("#1").removeClass("idPasser");
+		
+		for (i = 1; i < 10; i++) { 
+			$("#" + i.toString()).css("background-color", "brown");
+			$("#" + i.toString()).removeClass("idPasser");
+		}
+		
+	} else {
+		
+	}
+}
+
+$('.idPasser').click(function(){
+    var clickedID = this.id;
+
+
+//alert(clickedID);
+
+  // document.getElementById(clickedID).style.backgroundColor = "red";
+   //$("#" + clickedID).css("background-color", "yellow");
+
+/*
+var x = $(this).css('backgroundColor');
+if (x == "rgb(255, 255, 0)"){
+//alert(x);
+$("#" + clickedID).css("background-color", "rgba(0, 0, 0, 0)");
+} else {
+//alert(x);
+$("#" + clickedID).css("background-color", "yellow");
+}
+*/
+
+
+//yellow = rgb(255, 255, 0)
+//initial = rgba(0, 0, 0, 0)
+
+switch (clickedID) {
+
+    case "1":
+        
+        var selected_div = "#1";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#2";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#4";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+	
+        break;
+
+		
+    case "2":
+        var selected_div = "#1";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#2";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#3";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#5";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+        break;
+
+		
+    case "3":
+        
+		var selected_div = "#3";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#2";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#6";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+	
+        break;
+
+		
+    case "4":
+        
+		var selected_div = "#4";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#1";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#5";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+		
+		var selected_div = "#7";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+	
+        break;
+
+		
+    case "5":
+        
+		var selected_div = "#5";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#2";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#8";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+		
+		var selected_div = "#4";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+		
+		var selected_div = "#6";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+	
+        break;
+
+		
+    case  "6":
+        
+		var selected_div = "#6";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#3";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#5";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+	
+		var selected_div = "#9";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+	
+		break;
+
+		
+	case  "7":
+        
+		var selected_div = "#7";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#4";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#8";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+	
+		break;
+
+		
+	case  "8":
+        
+		var selected_div = "#8";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#5";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#7";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+		
+		var selected_div = "#9";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+		
+		break;
+
+		
+	case  "9":
+        
+		var selected_div = "#9";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#6";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		var selected_div = "#8";
+		var x = $(selected_div).css('backgroundColor');
+		if (x == "rgb(255, 255, 0)"){
+		$(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+		} else {
+		$(selected_div).css("background-color", "yellow");
+		}
+
+		break;
+}
+
+winning();
+
+   //this.css("background-color", "yellow");
+/*
+	if (document.getElementById(clickedID).style.backgroundColor != "red";){
+		document.getElementById(clickedID).style.backgroundColor = "red";
+	} else {
+		document.getElementById(clickedID).style.backgroundColor = "blue";	
+	}
+*/
+
+/*	$('#deleteItemDescription').text(this.id);
+	var rowIndex = parseInt(this.id) - 1;
+	$('#deleteItemRowIndex').text(rowIndex);
+	developedRowIndex = rowIndex;	*/
+});
+
+/* Game Timer */
+
+var i = 1;
+
+var interval = setInterval( increment, 1000);
+
+function increment(){
+    i = i + 1;
+    document.getElementById("game-timer").innerHTML = i;
+}
+
+
+</script>
+</body>
+</html>

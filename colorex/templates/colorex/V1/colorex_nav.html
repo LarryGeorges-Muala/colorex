@@ -1,0 +1,109 @@
+{% load static %}
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: black;">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar9">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>                        
+			</button>
+			<a href="/" style="color: white; font-size: 2em; margin-top: 5px;" class="navbar-brand">Colorex </a>
+			<a href="/" class="pull-left"><img width="40" style="margin-top: 7px;" src="{% static 'colorex/images/logo-2.png' %}"></a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar9">
+			<ul style="margin-top: 5px; font-size: 1.5em;" class="nav navbar-nav navbar-right">
+				<!--<li><a href="/"> <i class="glyphicon glyphicon-home"></i> Home</a></li>
+				<li><a style="cursor: pointer;" data-toggle="modal" data-target="#aboutModal"> <i style="font-size: 24px;" class="fa fa-question-circle-o"></i> About</a></li>-->
+				<li><a style="cursor: pointer;" data-toggle="modal" data-target="#tutorialModal" onclick="load_tutorial_video();"> <i style="font-size: 24px;" class="fa fa-play"></i> How To Play</a></li>
+				<li class="hide-on-home"><a class="hide-on-home" href="/levels"><i class="glyphicon glyphicon-th"></i> Levels</a></li>
+				<li class="hide-on-home"><a class="hide-on-home" href="/score"><i class="fa fa-trophy"></i> Score Board</a></li>
+				<li class="hide-on-home"><a class="hide-on-home" href="/leaderboard"><i class="fa fa-diamond"></i> Leader Board</a></li>
+				<li class="hide-on-home"><a class="hide-on-home" style="cursor: pointer;"><i data-toggle="modal" data-target="#logout" class="glyphicon glyphicon-off"></i> </a></li>
+			</ul>	  
+		</div>
+	</div>
+</nav>
+
+<!-- Name Modal -->
+<div id="aboutModal" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="text-align: center; border-radius: 25px; background-color: white;">
+		<!-- Modal content-->
+		<div class="modal-content" style="background-color: black; color: white">
+			<div class="modal-header" style="color: black; border: none;">
+				<button type="button" class="close" style="color: white;" data-dismiss="modal">&times;</button>
+				<h3 class="modal-title"> </h3>
+			</div>
+			<div class="modal-body" style="text-align: center; color: gold; border: none;">
+				<h2> <img width="40" style="margin-top: 15px;" src="{% static 'colorex/images/logo-compressor.png' %}"> <br> Colorex Game</h2>
+				<h4 style="color: white;">built with <span style="color: darkslategray; font-weight: 900;">JavaScript and jQuery</span></h4>
+				<h4 style="color: white;">by</h4>
+				<p style="font-size: 20pt; font-family: 'Great Vibes', cursive; color: darkgray;">Larry De La Muala</p>
+			</div>
+			<div class="modal-footer" style="text-align: center; border: none;">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal -->
+
+<!-- Tutorial Modal -->
+<div id="tutorialModal" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="text-align: center; border-radius: 25px; background-color: white;">
+		<!-- Modal content-->
+		<div class="modal-content" style="background-color: white; color: white">
+			<div class="modal-header" style="color: black; border: none;">
+				<button type="button" class="close" style="color: white;" data-dismiss="modal">&times;</button>
+				<h3 class="modal-title"> </h3>
+			</div>
+			<div class="modal-body" style="text-align: center; color: black; border: none;">
+				<p>The rule is simple: Make all the blocks go yellow by clicking on them :) <br> Clicking on one block makes itself, and the ones adjacent to it, turn on or off - Have fun!</p>
+				<div style="width: 100%; text-align: center;">
+					<video id="tutorial-video" width="280" height="310" controls>
+						<source id="tutorial-video-source" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<noscript>Please enable JavaScript on your browser to watch the video.</noscript>
+					<span style="display: block; width: 100%; color: #808080; font-size: 8pt;"><i class="fa fa-download"></i> 648KB</span>
+				</div>
+			</div>
+			<div class="modal-footer" style="text-align: center; border: none;">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Tutorial -->
+
+<!-- Logout Modal -->
+<div id="logout" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="text-align: center; border-radius: 25px; background-color: white;">
+		<!-- Modal content-->
+		<div class="modal-content" style="background-color: black; color: white">
+			<div class="modal-header" style="color: black; border: none;">
+				<button type="button" class="close" style="color: white;" data-dismiss="modal">&times;</button>
+				<h3 class="modal-title"> </h3>
+			</div>
+			<div class="modal-body" style="text-align: center; color: gold; border: none;">		
+				<h4 style="color: white;">Are you sure you want to leave the game <br> and lose your progress?</h4>
+			</div>
+			<div class="modal-footer" style="text-align: center; border: none;">
+				<a href="/logout" type="button" class="btn btn-danger">Yes</a>
+				<button type="button" data-dismiss="modal" class="btn btn-primary">No</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal -->
+
+<br>
+<br>
+<br>
+
+<script>
+function load_tutorial_video(){
+	document.getElementById('tutorial-video-source').src = "{% static 'colorex/images/colorex-tutorial.mp4' %}";
+	document.getElementById('tutorial-video').load();
+}
+</script>

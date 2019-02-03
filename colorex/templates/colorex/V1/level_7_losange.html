@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Level 7 | Colorex</title>
+	{% include 'colorex/base/base.html' %}
+</head>
+
+<body>
+<style>
+.block-sizes{
+	width: 50px;
+	height: 50px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid #cccccc;
+	margin: 1%; 
+	display: inline-block;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 900px){
+	.block-sizes{
+		width: 70px;
+		height: 70px;
+		margin: 2%; 
+	}
+	.game-timer-class{
+		position: static !important; 
+	}
+	#victory-block{
+		margin: 5% 10% 0 10% !important;
+	}
+	#victory-firework{
+		right: 0% !important;
+		top: -10px !important;
+	}
+}
+
+@media screen and (max-width: 400px){
+	.block-sizes{
+		width: 50px;
+		height: 50px;
+		margin: 2%; 
+	}
+}
+</style>
+
+{% include 'colorex/base/colorex_nav.html' %}
+
+<div style="text-align: center; margin: 5% 0 5% 0;">
+	<h1 style="width: 200px; margin: auto; border: 2px solid brown; padding: 1% 2%; border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Level 7 - Losange</h1>
+	<div >
+		<img id="victory-firework" style="display: none; position: absolute; top: 5px; right: 32%; margin: auto;" src="{% static 'colorex/images/fireworks3.gif' %}">
+	</div>
+	<div id="victory-block" style="display: none; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color: brown; color: white; margin: 5% 30% 0 30%; padding: 3% 5%; border-radius: 7px;">
+		<h2>Conragtulations, You Won!<h2>
+		<h4> <span style="color: white;" class="glyphicon glyphicon-time"></span> <span id="winning-game-time"></span> s. </h4>
+	</div>
+	
+	<div id="next-level-block" style="display: none;">
+		<br>
+		<form action="{% url 'colorex:level_7' %}" method="POST"> 
+		{% csrf_token %}
+			<input type="hidden" name="time" id="time-capture" style="display: none;" >
+			<a href="/7" class="btn btn-primary">Replay this level <span class="glyphicon glyphicon-repeat"></span></a> 
+			<input type="submit" class="btn btn-danger" name="NEXT" value="Next Level"/>
+			<br>
+			<br>
+			<input type="submit" class="btn btn-info" name="LEVELS" value="See Levels"/>
+		</form>		
+		<br>
+		<br>
+	</div>
+</div>
+
+
+
+<div style="text-align: center; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+  <div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  
+	  <div style="padding: 1%;">
+		  <div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		  <div id="1" class="block-sizes idPasser"></div>
+
+		  <div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);" ></div>
+	  </div>
+
+	  <div style="padding: 1%;">
+		  <div id="2" class="block-sizes idPasser"></div>
+
+		  <div id="3" class="block-sizes idPasser"></div>
+
+		  <div id="4" class="block-sizes idPasser"></div>
+	  </div>
+
+	  <div style="padding: 1%;">
+		  <div id="5" class="block-sizes idPasser"></div>
+
+		  <div id="6" class="block-sizes idPasser"></div>
+
+		  <div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		  <div id="7" class="block-sizes idPasser"></div>
+
+		  <div id="8" class="block-sizes idPasser"></div>
+	  </div>
+	  
+	  <div style="padding: 1%;">
+		  <div id="9" class="block-sizes idPasser"></div>
+
+		  <div id="10" class="block-sizes idPasser"></div>
+
+		  <div id="11" class="block-sizes idPasser"></div>
+	  </div>
+
+	  <div style="padding: 1%;">
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="12" class="block-sizes idPasser"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);" ></div>
+	</div>
+  
+  </div>
+  
+</div>
+
+<div id="game-timer-container" style="">
+	<br>
+	<h5 class="game-timer-class" style="background-color: white; position: relative; top: -320px; right: 60px; float: right; text-align: center; width: 150px; border-radius: 0 10px 0 10px; border: 1px solid brown; padding: 1%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+		<span style="vertical-align: middle; color: brown;" class="glyphicon glyphicon-time"></span> <span id="game-timer"></span> s. <a style="float: right; text-decoration: none; color: brown; font-size: 24px;" href="/7" class="fa fa-undo"></a>
+	</h5>
+</div>
+
+<script>
+function winning(){
+
+  var winning_color = "rgb(255, 255, 0)";
+  
+  var victory_color = "rgb(165, 42, 42)";
+  
+  var selected_div_1 = "#1";
+  selected_div_1 = $(selected_div_1).css('backgroundColor');
+  
+  var selected_div_2 = "#2";
+  selected_div_2 = $(selected_div_2).css('backgroundColor');
+  
+  var selected_div_3 = "#3";
+  selected_div_3 = $(selected_div_3).css('backgroundColor');
+  
+  var selected_div_4 = "#4";
+  selected_div_4 = $(selected_div_4).css('backgroundColor');
+  
+  var selected_div_5 = "#5";
+  selected_div_5 = $(selected_div_5).css('backgroundColor');
+  
+  var selected_div_6 = "#6";
+  selected_div_6 = $(selected_div_6).css('backgroundColor');
+  
+  var selected_div_7 = "#7";
+  selected_div_7 = $(selected_div_7).css('backgroundColor');
+  
+  var selected_div_8 = "#8";
+  selected_div_8 = $(selected_div_8).css('backgroundColor');
+  
+  var selected_div_9 = "#9";
+  selected_div_9 = $(selected_div_9).css('backgroundColor');
+
+  var selected_div_10 = "#10";
+  selected_div_10 = $(selected_div_10).css('backgroundColor');
+
+  var selected_div_11 = "#11";
+  selected_div_11 = $(selected_div_11).css('backgroundColor');
+
+  var selected_div_12 = "#12";
+  selected_div_12 = $(selected_div_12).css('backgroundColor');
+  
+  if ( selected_div_1 == winning_color && selected_div_2 == winning_color && selected_div_3 == winning_color && selected_div_4 == winning_color && selected_div_5 == winning_color && selected_div_6 == winning_color && selected_div_7 == winning_color && selected_div_8 == winning_color && selected_div_9 == winning_color && selected_div_10 == winning_color && selected_div_11 == winning_color && selected_div_12 == winning_color){
+	  
+	  /* Fade in victory block */
+	  $("#victory-block").fadeIn();
+	  
+	  $("#next-level-block").fadeIn();
+	  
+	  $("#victory-firework").fadeIn();
+	  
+	  /* Fade out game timer */
+	  $("#game-timer-container").fadeOut();
+	  
+	  /* Setting Winning Time */
+	  $("#winning-game-time").html($("#game-timer").html());
+  
+	  /* Change to victory color */		
+	  for (i = 1; i < 13; i++) { 
+		  $("#" + i.toString()).css("background-color", "brown");
+		  $("#" + i.toString()).removeClass("idPasser");
+	  }
+	  
+  } else {
+	  
+  }
+}
+
+function match_blocks_of(z){
+  var selected_div = z;
+  var x = $(selected_div).css('backgroundColor');
+  if (x == "rgb(255, 255, 0)"){
+	  $(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+  } else {
+	  $(selected_div).css("background-color", "yellow");
+  }
+}
+
+$('.idPasser').click(function(){
+  var clickedID = this.id;
+
+switch (clickedID) {
+
+  case "1":
+	  match_blocks_of('#1');
+	  match_blocks_of('#3');
+	  break;
+
+  case "2":
+	  match_blocks_of('#2');
+	  match_blocks_of('#3');
+	  match_blocks_of('#6');
+	  break;
+
+  case "3":
+	  match_blocks_of('#3');
+	  match_blocks_of('#1');
+	  match_blocks_of('#2');
+	  match_blocks_of('#4');
+	  break;
+	  
+  case "4":
+	  match_blocks_of('#4');
+	  match_blocks_of('#3');
+	  match_blocks_of('#7');
+	  break;
+	  
+  case "5":
+	  match_blocks_of('#5');
+	  match_blocks_of('#6');
+	  break;
+	  
+  case  "6":
+	  match_blocks_of('#6');
+	  match_blocks_of('#2');
+	  match_blocks_of('#5');
+	  match_blocks_of('#9');
+	  break;
+	  
+  case  "7":
+	  match_blocks_of('#7');
+	  match_blocks_of('#4');
+	  match_blocks_of('#8');
+	  match_blocks_of('#11');
+	  break;
+	  
+  case  "8":
+	  match_blocks_of('#8');
+	  match_blocks_of('#7');
+	  break;
+	  
+  case  "9":
+	  match_blocks_of('#9');
+	  match_blocks_of('#6');
+	  match_blocks_of('#10');
+	  break;
+
+  case  "10":
+	  match_blocks_of('#10');
+	  match_blocks_of('#9');
+	  match_blocks_of('#11');
+	  match_blocks_of('#12');
+	  break;
+
+  case  "11":
+	  match_blocks_of('#11');
+	  match_blocks_of('#7');
+	  match_blocks_of('#10');
+	  break;
+
+  case  "12":
+	  match_blocks_of('#12');
+	  match_blocks_of('#10');
+	  break;
+}
+
+winning();
+
+});
+
+/* Game Timer */
+var i = 1;
+var interval = setInterval( increment, 1000);
+function increment(){
+  i = i + 1;
+  document.getElementById("game-timer").innerHTML = i;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+{% extends 'colorex/base/base_level.html' %}
+{% load static %}
+
+{% block level_name %}{{ level_index_name }}{% endblock %}
+
+{% block level_header %}{{ level_index_name }}{% endblock %}
+
+{% block maze %}
+<div class="maze-blocks-container">
+	<div class="block-sizes-container">
+		<i id="1" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container">
+		<i id="2" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="3" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container">
+		<i id="4" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="5" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="6" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="7" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="8" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+</div>
+{% endblock %}
+
+{% block maze_victory %}
+<script>
+function winning(){
+	if ( validate_winning_color('#1') && validate_winning_color('#2') && validate_winning_color('#3') && validate_winning_color('#4') && validate_winning_color('#5') && validate_winning_color('#6') && validate_winning_color('#7') && validate_winning_color('#8') ){
+		trigger_victory_scenario();
+
+		var victory_time = $("#game-timer").html();
+
+		manage_level('{{user.id}}', victory_time, '{{ level_index_name }}');
+	}
+}
+</script>
+{% endblock %}
+
+{% block maze_logic %}
+<script>
+function switch_handler(clickedID){
+	switch (clickedID) {
+		case "1":
+			activate_winning_condition("#1");
+			activate_winning_condition("#2");
+			break;
+
+		case "2":
+			activate_winning_condition("#1");
+			activate_winning_condition("#2");
+			activate_winning_condition("#4");
+			break;
+			
+		case "3":
+			activate_winning_condition("#3");
+			activate_winning_condition("#6");
+			break;
+			
+		case "4":
+			activate_winning_condition("#4");
+			activate_winning_condition("#2");
+			activate_winning_condition("#5");
+			break;
+
+		case "5":
+			activate_winning_condition("#5");
+			activate_winning_condition("#6");
+			activate_winning_condition("#4");
+			break;
+			
+		case "6":
+			activate_winning_condition("#6");
+			activate_winning_condition("#3");
+			activate_winning_condition("#5");
+			activate_winning_condition("#7");
+			break;
+			
+		case "7":
+			activate_winning_condition("#7");
+			activate_winning_condition("#6");
+			activate_winning_condition("#8");
+			break;
+			
+		case "8":
+			activate_winning_condition("#8");
+			activate_winning_condition("#7");
+			break;
+
+	}
+}
+</script>
+{% endblock %}
+

@@ -1,0 +1,310 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Score Board | Colorex</title>
+	{% include 'colorex/base/base.html' %}
+</head>
+
+<body>
+
+<style>
+.block-sizes{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid #cccccc;
+	margin: 1% 20%; 
+	display: block;
+	border-radius: 10px;
+	padding: 2% 0;
+}
+
+.block-scores{
+
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid #cccccc;
+	margin: 0%; 
+	display: inline-block;
+	padding: 1% 0;
+}
+
+.block-level{
+	width: 200px;
+	border-radius: 7px 0 0 7px;
+	font-weight: bold;
+	background-color: #b62f2f;
+	color: white;
+}
+
+.block-time{
+	width: 150px;
+	background-color: #ffff99;
+	color: brown;
+}
+
+.block-replay{
+	width: 100px;
+	border-radius: 0 7px 7px 0;
+	background-color: #cc3300;
+	color: gold;
+}
+
+.block-replays{
+	width: 100px;
+	border-radius: 0 7px 7px 0;
+	background-color: #cc3300;
+	color: gold;
+}
+
+.block-replay a{
+	color: gold;
+}
+
+.block-scores-containers{
+	margin: 2% 0;
+}
+
+
+/* Leaderboard */
+
+.leaderboard {
+
+    -webkit-animation-name: lead; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    animation-name: lead;
+    animation-duration: 10s;
+	animation-iteration-count: infinite;
+	-webkit-transition: color 2s; /* Safari */
+    transition: color 2s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes lead {
+    from {color: gold;}
+    to {color: #ffff99;}
+}
+
+/* Standard syntax */
+@keyframes lead {
+    from {color: gold;}
+    to {color: #ffff99;}
+}
+
+@media screen and (max-width: 900px){
+	.block-sizes{
+		width: 70px;
+		height: 70px;
+		margin: 2%; 
+	}
+	
+	.block-level{
+		width: 100px;
+		border-radius: 7px 0 0 7px;
+		font-weight: bold;
+		background-color: #b62f2f;
+		color: white;
+	}
+
+	.block-time{
+		width: 100px;
+		background-color: #ffff99;
+		color: brown;
+		font-weight: bold;
+	}
+
+	.block-replay{
+		width: 50px;
+		border-radius: 0 7px 7px 0;
+		background-color: #cc3300;
+		color: gold;
+	}
+	
+	.block-scores-containers{
+		margin: 4% 0;
+	}
+	
+	.score-board-header{
+		margin: 0 1% !important;
+	}
+	
+	.block-replays{
+		width: 100px;
+		border-radius: 0 7px 0 7px !important;
+		background-color: #cc3300;
+		color: gold;
+		display: block;
+		margin: 10% auto;
+		padding: 3% 0%;
+		font-size: 18px;
+		
+	}
+
+}
+</style>
+
+{% include 'colorex/base/colorex_nav.html' %}
+
+<div style="text-align: center; margin: 5% 0 5% 0;">
+	
+	<h1 class="score-board-header" style="margin: 0 20%; border: 2px solid brown; padding: 1% 2%; border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+	<i style="color: #e6c300;" class="fa fa-trophy"></i> Score Board <i style="color: #e6c300;" class="fa fa-trophy"></i>
+	</h1>
+	
+</div>
+
+
+
+<div style="text-align: center; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+	
+	
+	<div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+	
+		<br>
+
+		<div class="block-scores-containers">
+		{% if not user.level_1_unlock %}
+			<div class="block-scores block-level" > <a style="color: white;"href="/1"><i class="glyphicon glyphicon-star"></i> Level 1 </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_1_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/1"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		{% else %}
+			<div class="block-scores block-level" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock"></i> Level 1 </div>
+
+			<div class="block-scores block-time" style="background-color: #ffffe6;"> <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_1_time }}s. </div>
+
+			<div class="block-scores block-replay" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		{% endif %}
+		</div>
+
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/1"><i class="glyphicon glyphicon-star"></i> Level 1 </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_1_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/1"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+		
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/2"><i class="glyphicon glyphicon-star"></i> Level 2 </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_2_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/2"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+		
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/3"><i class="glyphicon glyphicon-star"></i> Level 3 </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_3_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/3"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+		
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/4"><i class="glyphicon glyphicon-star"></i> Level 4 </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_4_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/4"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+		
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/5"><i class="glyphicon glyphicon-star"></i> Level 5 </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_5_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/5"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+		
+		<hr>
+		
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" style="background-color: #800000;" > <i style="color: #e6c300;" class="fa fa-trophy"></i> {{ user.user_name }} </div>
+
+			<div class="block-scores block-time" style="background-color: #ffff4d;"> <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.total_time }}s. </div>
+
+			<div class="block-scores block-replays" style="background-color: #b32d00; border-radius: 0px;"> <a href="/leaderboard"><span class="fa fa-diamond leaderboard"></span></a> </div>
+			
+			<div class="block-scores block-replays" style="background-color: #ffece6;"> 
+				<div class="fb-share-button" data-href="http://colorex.herokuapp.com" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcolorex.herokuapp.com%2F&amp;src=sdkpreparse"></a></div>
+			</div>
+		</div>
+		
+		<br>
+		
+		<br>
+		
+		<div style="text-align: center;">
+			<a href="/leaderboard" class="btn btn-danger"><i class="glyphicon glyphicon-star"></i> See LeaderBoard <i class="glyphicon glyphicon-star"></i></a>
+		</div>		
+
+		<br>
+		
+		<br>
+
+		<hr>
+
+		<br>
+		
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/6"><i class="glyphicon glyphicon-star"></i> Level 6 <i class="glyphicon glyphicon-star"></i> </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_6_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/6"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/7"><i class="glyphicon glyphicon-star"></i> Level 7 <i class="glyphicon glyphicon-star"></i> </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_7_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/7"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/8"><i class="glyphicon glyphicon-star"></i> Level 8 <i class="glyphicon glyphicon-star"></i> </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_8_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/8"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/9"><i class="glyphicon glyphicon-star"></i> Level 9 <i class="glyphicon glyphicon-star"></i> </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_9_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/9"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <a style="color: white;"href="/10"><i class="glyphicon glyphicon-star"></i> Level 10 <i class="glyphicon glyphicon-star"></i> </a></div>
+
+			<div class="block-scores block-time" > <span style="color: brown;" class="glyphicon glyphicon-time"></span> {{ user.level_10_time }}s. </div>
+
+			<div class="block-scores block-replay" > <a href="/10"><span class="glyphicon glyphicon-repeat"></span></a> </div>
+		</div>
+
+		<br>
+
+		<br>
+		
+		<div style="text-align: center;">
+			<a href="/" class="glyphicon glyphicon-home"></a>
+		</div>
+	
+	</div>
+	
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=1626868634052841";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>

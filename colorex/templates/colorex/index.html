@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Colorex</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="{% static 'colorex/images/favicon.ico' %}"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!--
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  -->
+</head>
+
+<body>
+<style>
+body{
+	font-family: 'Roboto', sans-serif;	
+}
+
+.hide-on-home{
+	/*display: none !important;*/
+}
+
+/* Rotate */
+.colorex-spinner {
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 4000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 4000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 4000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.colorex-spinner-container{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	padding: 5%;
+	margin: 5% 30%;
+	border-radius: 10px;
+}
+
+@-ms-keyframes spin {
+    from { -ms-transform: rotateY(0deg); }
+    to { -ms-transform: rotateY(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotateY(0deg); }
+    to { -moz-transform: rotateY(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotateY(0deg); }
+    to { -webkit-transform: rotateY(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotateY(0deg);
+    }
+    to {
+        transform:rotateY(360deg);
+    }
+}
+
+@media screen and (max-width: 900px){
+.colorex-spinner-container{
+	margin: 20% 10%;
+}
+}
+</style>
+
+{% include 'colorex/base/colorex_nav.html' %}
+
+<div style="width: 100%; margin-top: 5%;">
+    <div class="colorex-spinner-container">
+        <div style="text-align: center;">
+            <img class="colorex-spinner" style="width: 100px;" src="{% static 'colorex/images/logo-2-compressor.png' %}">
+        </div>
+        <div style="text-align: center;">
+            <br>
+            <a href="/handler/levels/" class="btn btn-default">Play Colorex</a>
+        </div>
+    </div>
+</div>
+
+<!-- Speeding Script -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="none" onload="if(media!='all')media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" media="none" onload="if(media!='all')media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"></noscript>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" async></script>
+<!-- End Speeding Script -->
+</body>
+</html>

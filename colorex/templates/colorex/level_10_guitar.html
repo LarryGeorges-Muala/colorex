@@ -1,0 +1,579 @@
+{% extends 'colorex/base/base_level.html' %}
+{% load static %}
+
+{% block level_name %}{{ level_index_name }}{% endblock %}
+
+{% block level_header %}{{ level_index_name }}{% endblock %}
+
+{% block maze %}
+<style>
+.custom-button{
+	display: none;
+}
+.custom-ending-button{
+	display: inline-block;
+}
+.block-sizes{
+	font-size: 65px;
+}
+.block-sizes-container{
+	width: 55px;
+	height: 55px;
+	margin: 1px;
+}
+@media screen and (max-width: 900px){
+	.block-sizes{
+		font-size: 65px;
+	}
+	.block-sizes-container{
+		width: 50px;
+		height: 50px;
+		margin: 1px;
+	}
+}
+</style>
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="1" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="2" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="3" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="4" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="5" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="6" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="7" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="8" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="9" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="10" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="11" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="12" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container">
+		<i id="13" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="14" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="15" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="16" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="17" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container">
+		<i id="18" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="19" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="20" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="21" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="22" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="23" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="24" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="25" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container">
+		<i id="26" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="27" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="28" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="29" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="30" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container">
+		<i id="31" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="32" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="33" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="34" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container">
+		<i id="35" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="36" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="37" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="38" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="39" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+</div>
+
+<div class="maze-blocks-container">
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="40" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="41" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container">
+		<i id="42" class="fa fa-lightbulb-o block-sizes idPasser"></i>
+	</div>
+	<div class="block-sizes-container hidden-block">
+		<i id="" class="fa fa-lightbulb-o block-sizes"></i>
+	</div>
+</div>
+{% endblock %}
+
+{% block maze_victory %}
+<script>
+function winning(){
+	if ( validate_winning_color('#1') && validate_winning_color('#2') && validate_winning_color('#3') && validate_winning_color('#4') && validate_winning_color('#5') && validate_winning_color('#6') && validate_winning_color('#7') && validate_winning_color('#8') && validate_winning_color('#9') && validate_winning_color('#10') && validate_winning_color('#11') && validate_winning_color('#12') && validate_winning_color('#13') && validate_winning_color('#14') && validate_winning_color('#15') && validate_winning_color('#16') && validate_winning_color('#17') && validate_winning_color('#18') && validate_winning_color('#19') && validate_winning_color('#20') && validate_winning_color('#21') && validate_winning_color('#22') && validate_winning_color('#23') && validate_winning_color('#24') && validate_winning_color('#25') && validate_winning_color('#26') && validate_winning_color('#27') && validate_winning_color('#28') && validate_winning_color('#29') && validate_winning_color('#30') && validate_winning_color('#31') && validate_winning_color('#32') && validate_winning_color('#33') && validate_winning_color('#34') && validate_winning_color('#35') && validate_winning_color('#36') && validate_winning_color('#37') && validate_winning_color('#38') && validate_winning_color('#39') && validate_winning_color('#40') && validate_winning_color('#41') && validate_winning_color('#42') ){
+		trigger_victory_scenario();
+
+		var victory_time = $("#game-timer").html();
+
+		manage_level('{{user.id}}', victory_time, '{{ level_index_name }}');
+	}
+}
+</script>
+{% endblock %}
+
+{% block maze_logic %}
+<script>
+function switch_handler(clickedID){
+	switch (clickedID) {
+		case "1":
+			activate_winning_condition("#1");
+			activate_winning_condition("#3");
+			break;
+
+		case "2":
+			activate_winning_condition("#2");
+			activate_winning_condition("#3");
+			activate_winning_condition("#5");
+			break;
+			
+		case "3":
+			activate_winning_condition("#3");
+			activate_winning_condition("#1");
+			activate_winning_condition("#2");
+			activate_winning_condition("#4");
+			activate_winning_condition("#6");
+			break;
+			
+		case "4":
+			activate_winning_condition("#4");
+			activate_winning_condition("#3");
+			activate_winning_condition("#7");
+			break;
+
+		case "5":
+			activate_winning_condition("#5");
+			activate_winning_condition("#2");
+			activate_winning_condition("#6");
+			break;
+			
+		case "6":
+			activate_winning_condition("#6");
+			activate_winning_condition("#3");
+			activate_winning_condition("#5");
+			activate_winning_condition("#7");
+			activate_winning_condition("#8");
+			break;
+			
+		case "7":
+			activate_winning_condition("#7");
+			activate_winning_condition("#4");
+			activate_winning_condition("#6");
+			break;
+			
+		case "8":
+			activate_winning_condition("#8");
+			activate_winning_condition("#6");
+			activate_winning_condition("#9");
+			break;
+
+		case "9":
+			activate_winning_condition("#9");
+			activate_winning_condition("#8");
+			activate_winning_condition("#11");
+			break;
+
+		case "10":
+			activate_winning_condition("#10");
+			activate_winning_condition("#11");
+			activate_winning_condition("#14");
+			break;
+
+		case "11":
+			activate_winning_condition("#11");
+			activate_winning_condition("#9");
+			activate_winning_condition("#10");
+			activate_winning_condition("#12");
+			activate_winning_condition("#15");
+			break;
+
+		case "12":
+			activate_winning_condition("#12");
+			activate_winning_condition("#11");
+			activate_winning_condition("#16");
+			break;
+
+		case "13":
+			activate_winning_condition("#13");
+			activate_winning_condition("#14");
+			activate_winning_condition("#18");
+			break;
+
+		case "14":
+			activate_winning_condition("#14");
+			activate_winning_condition("#10");
+			activate_winning_condition("#13");
+			activate_winning_condition("#15");
+			activate_winning_condition("#19");
+			break;
+
+		case "15":
+			activate_winning_condition("#15");
+			activate_winning_condition("#11");
+			activate_winning_condition("#14");
+			activate_winning_condition("#16");
+			activate_winning_condition("#20");
+			break;
+
+		case "16":
+			activate_winning_condition("#16");
+			activate_winning_condition("#12");
+			activate_winning_condition("#15");
+			activate_winning_condition("#17");
+			activate_winning_condition("#21");
+			break;
+
+		case "17":
+			activate_winning_condition("#17");
+			activate_winning_condition("#16");
+			activate_winning_condition("#22");
+			break;
+
+		case "18":
+			activate_winning_condition("#18");
+			activate_winning_condition("#13");
+			activate_winning_condition("#19");
+			break;
+
+		case "19":
+			activate_winning_condition("#19");
+			activate_winning_condition("#14");
+			activate_winning_condition("#18");
+			activate_winning_condition("#20");
+			activate_winning_condition("#23");
+			break;
+
+		case "20":
+			activate_winning_condition("#20");
+			activate_winning_condition("#15");
+			activate_winning_condition("#19");
+			activate_winning_condition("#21");
+			activate_winning_condition("#24");
+			break;
+
+		case "21":
+			activate_winning_condition("#21");
+			activate_winning_condition("#16");
+			activate_winning_condition("#20");
+			activate_winning_condition("#22");
+			activate_winning_condition("#25");
+			break;
+
+		case "22":
+			activate_winning_condition("#22");
+			activate_winning_condition("#17");
+			activate_winning_condition("#21");
+			break;
+
+		case "23":
+			activate_winning_condition("#23");
+			activate_winning_condition("#19");
+			activate_winning_condition("#24");
+			activate_winning_condition("#27");
+			break;
+
+		case "24":
+			activate_winning_condition("#24");
+			activate_winning_condition("#20");
+			activate_winning_condition("#23");
+			activate_winning_condition("#25");
+			activate_winning_condition("#28");
+			break;
+
+		case "25":
+			activate_winning_condition("#25");
+			activate_winning_condition("#21");
+			activate_winning_condition("#24");
+			activate_winning_condition("#29");
+			break;
+
+		case "26":
+			activate_winning_condition("#26");
+			activate_winning_condition("#27");
+			activate_winning_condition("#31");
+			break;
+
+		case "27":
+			activate_winning_condition("#27");
+			activate_winning_condition("#23");
+			activate_winning_condition("#26");
+			activate_winning_condition("#28");
+			activate_winning_condition("#32");
+			break;
+
+		case "28":
+			activate_winning_condition("#28");
+			activate_winning_condition("#24");
+			activate_winning_condition("#27");
+			activate_winning_condition("#29");
+			break;
+
+		case "29":
+			activate_winning_condition("#29");
+			activate_winning_condition("#25");
+			activate_winning_condition("#28");
+			activate_winning_condition("#30");
+			break;
+
+		case "30":
+			activate_winning_condition("#30");
+			activate_winning_condition("#29");
+			activate_winning_condition("#34");
+			break;
+
+		case "31":
+			activate_winning_condition("#31");
+			activate_winning_condition("#26");
+			activate_winning_condition("#32");
+			activate_winning_condition("#35");
+			break;
+
+		case "32":
+			activate_winning_condition("#32");
+			activate_winning_condition("#27");
+			activate_winning_condition("#31");
+			activate_winning_condition("#36");
+			break;
+
+		case "33":
+			activate_winning_condition("#33");
+			activate_winning_condition("#29");
+			activate_winning_condition("#34");
+			activate_winning_condition("#38");
+			break;
+
+		case "34":
+			activate_winning_condition("#34");
+			activate_winning_condition("#30");
+			activate_winning_condition("#33");
+			activate_winning_condition("#39");
+			break;
+
+		case "35":
+			activate_winning_condition("#35");
+			activate_winning_condition("#31");
+			activate_winning_condition("#36");
+			break;
+
+		case "36":
+			activate_winning_condition("#36");
+			activate_winning_condition("#32");
+			activate_winning_condition("#35");
+			activate_winning_condition("#37");
+			activate_winning_condition("#40");
+			break;
+
+		case "37":
+			activate_winning_condition("#37");
+			activate_winning_condition("#36");
+			activate_winning_condition("#38");
+			activate_winning_condition("#41");
+			break;
+
+		case "38":
+			activate_winning_condition("#38");
+			activate_winning_condition("#33");
+			activate_winning_condition("#37");
+			activate_winning_condition("#39");
+			activate_winning_condition("#42");
+			break;
+
+		case "39":
+			activate_winning_condition("#39");
+			activate_winning_condition("#34");
+			activate_winning_condition("#38");
+			break;
+
+		case "40":
+			activate_winning_condition("#40");
+			activate_winning_condition("#36");
+			activate_winning_condition("#41");
+			break;
+
+		case "41":
+			activate_winning_condition("#41");
+			activate_winning_condition("#37");
+			activate_winning_condition("#40");
+			activate_winning_condition("#42");
+			break;
+
+		case "42":
+			activate_winning_condition("#42");
+			activate_winning_condition("#38");
+			activate_winning_condition("#41");
+			break;
+
+	}
+}
+</script>
+{% endblock %}
+

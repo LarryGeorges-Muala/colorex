@@ -1,0 +1,411 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Level {% block level_name %}{% endblock %} | Colorex</title>
+	{% include 'colorex/base/base.html' %}
+</head>
+
+<body>
+
+<style>
+.block-sizes{
+	margin: 1%; 
+	display: inline-block;
+	cursor: pointer;
+	font-size: 80px;
+}
+
+.hidden-block{
+	visibility: hidden;
+	color: white;
+	cursor: default !important;
+}
+
+.block-sizes-container{
+	width: 90px;
+	height: 90px;
+	margin: 1%; 
+	display: inline-block;
+	cursor: pointer;
+}
+
+.maze-blocks-container{
+	padding: 1%;
+}
+
+.winning-buttons{
+	margin: 10px;
+	outline-color: rgba(154, 205, 50, 1) !important;
+}
+
+.winning-header{
+	font-size: 36px;
+	font-weight: 500;
+    line-height: 1.1;
+}
+
+.neuter-link{
+	text-decoration: none !important;
+	color: inherit !important;
+}
+
+.custom-ending-button, .custom-score-button{
+	display: none;
+}
+
+@media screen and (max-width: 900px){
+	.block-sizes{
+		margin: 2%; 
+	}
+	.game-timer-class{
+		position: static !important; 
+	}
+	#victory-block{
+		margin: 5% 10% 0 10% !important;
+	}
+	#victory-firework{
+		right: 0% !important;
+		top: -10px !important;
+	}
+	.block-sizes-container{
+		width: 80px;
+	}
+}
+</style>
+
+{% include 'colorex/base/colorex_nav.html' %}
+
+<div style="text-align: center; margin: 5% 0 20px 0;">
+	<h1 id="page-header" style="width: 200px; margin: 90px auto 0 auto; border: 2px solid #ccc; padding: 10px 2%; border-radius: 0px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Level {% block level_header %}{% endblock %}</h1>
+	<div>
+		<i class="fa fa-angle-double-down" style="font-size: 40px; color: rgba(154, 205, 50, .3); cursor: pointer;" onclick="document.getElementById('page-header').scrollIntoView();"></i>
+	</div>	
+</div>
+
+
+
+<div style="text-align: center; padding: 0px 10px 50px 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+	<!-- Timer -->
+	<div id="game-timer-container" style="width: 100%; text-align: center;">
+		<br>
+		<h5 class="game-timer-class" style="margin: auto; background-color: white; text-align: center; width: 150px; border-radius: 0; border: 1px solid #ccc; color: darkgray; font-weight: 700; padding: 10px 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+			<span style="font-size: 16px; top: 3px;" class="glyphicon glyphicon-time"></span> 
+			<span id="game-timer">0</span> s. <button data-toggle="modal" data-target="#pause-game" onclick="pause_timer();" style="padding: 10px 12px; margin-left: 10px; color: brown; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"><i class="fa fa-pause"></i></button>
+		</h5>
+		<br>
+	</div>
+	<!-- End Timer -->
+
+	<!-- Winning Block -->
+	<div id="game-completed-block" style="display: none; width: 100%;">
+		<div style="display: inline-block; padding: 10px 15px; margin-top: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+			<div style="padding: 20px 0;">
+				<span class="winning-header">Congratulations</span>
+			</div>
+			<div>
+				<p>
+					<span style="font-size: 16px; top: 2px; font-weight: 900;" class="glyphicon glyphicon-time"></span>
+					<span id="final-winning-time" style="font-weight: 900; font-size: 17px;">0 s.</span>
+					<span style="font-size: 23px; color: gold;" class="fa fa-trophy"></span>
+				</p>
+			</div>
+			<div>
+				<img style="width: 200px;" src="{% static 'colorex/images/victory_lamp-compressor.gif' %}">
+			</div>
+			<div>
+				<button class="btn btn-default winning-buttons"><a href="{{ request.path }}" class="neuter-link">Replay Level</a></button>
+				<button class="btn btn-default winning-buttons custom-button" id="custom-button"><a href="/handler/levels/" class="neuter-link">Next Level</a></button>
+				<button class="btn btn-default winning-buttons custom-ending-button" id="custom-ending-button"><a data-toggle="modal" data-target="#score-modal" class="neuter-link">See Your Score</a></button>
+				<button class="btn btn-default winning-buttons custom-ending-button" id="custom-score-button"><a href="/score" class="neuter-link">See Your Score</a></button>
+			</div>
+			<div>
+				<button class="btn btn-default winning-buttons"><a href="/levels" class="neuter-link">See All Levels</a></button>
+				<button class="btn btn-default winning-buttons"><a href="/" class="neuter-link">Quit Game</a></button>
+			</div>
+		</div>
+	</div>
+	<!-- End Winning Block -->
+
+	<!-- Maze -->
+	<div id="level-maze-container" style="max-width: 300px; margin: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+		{% block maze %}
+
+		{% endblock %}
+	</div>
+	<!-- End Maze -->
+	
+</div>
+
+<!-- Pause Game -->
+<div class="modal fade" id="pause-game" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content" style="text-align: center; border-radius: 0px;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div style="clear: both;">
+					<img width="40" style="margin-top: 7px;" src="{% static 'colorex/images/logo-2.png' %}">
+				</div>
+				<h4 class="modal-title" style="font-size: 25px; font-weight: 900;">Game Paused</h4>
+				<p style="margin-bottom: 0; color: brown;">
+					<span style="font-size: 16px; top: 2px; font-weight: 900;" class="glyphicon glyphicon-time"></span>
+					<span id="paused-time" style="font-weight: 900; font-size: 17px;">0 s.</span>
+				</p>
+			</div>
+			<div class="modal-body">
+				<p style="margin: 20px 0;">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Continue Game</button>
+				</p>
+				<p style="margin: 20px 0;">
+					<button type="button" class="btn btn-default"><a href="{{ request.path }}" class="neuter-link">Restart Level</a></button>
+				</p>
+				<p style="margin: 20px 0 0 0;">
+					<button type="button" class="btn btn-default"><a href="/" class="neuter-link">Quit Game</a></button>
+				</p>
+			</div>
+			<div class="modal-footer" style="border-top: none;">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Pause Game -->
+
+<!-- Name Modal -->
+<div id="score-modal" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="text-align: center; border-radius: 25px;">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="color: black; border: none;">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h3 class="modal-title"> </h3>
+			</div>
+			<div class="modal-body" style="text-align: center; color: black; border: none;">
+				<h2> <span style="color: gold;" class="fa fa-trophy"></span> <br> Congratulations </h2>
+				<label for="username">Please Enter your Name:</label>
+				<input type="text" class="form-control" id="username" name="username" ontouchstart="trigger_name_save();" ontouchend="trigger_name_save();" onchange="trigger_name_save();" onpaste="trigger_name_save();" onkeyup="trigger_name_save();">
+				<span style="color: gray; position: relative; top: -25px; right: 10px; float: right;" class="glyphicon glyphicon-user"></span>
+			</div>
+			<div class="modal-footer" style="text-align: center; border: none;">
+				<button id="skip-see-score" type="button" class="btn btn-default"><a href="/score" class="neuter-link">Skip And See Your Score</a></button>
+				<button id="save-see-score" type="button" class="btn btn-success" style="display: none;"><a href="/score" class="neuter-link">Save And See Your Score</a></button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal -->
+
+<!-- Color Handler -->
+<script>
+var initial_block_color = "rgb(51, 51, 51)";
+var activated_block_color = "rgb(154, 205, 50)";
+var victory_color = "rgb(165, 42, 42)";
+</script>
+<!-- End Color Handler -->
+
+<!-- User Management -->
+<script>
+function manage_level(user_id, user_time, level){
+	$.ajax({
+		url: '/handler/time/',
+		data: {
+			'user_id': user_id,
+			'user_time': user_time,
+			'level': level
+		},
+		dataType: 'json',
+		success: function (data) { },
+		error: function(xhr, textStatus, error){
+			console.log(String(error));
+			console.log(String(xhr.statusText));
+			console.log(String(textStatus));
+		}
+	});
+}
+</script>
+<!-- End User Management -->
+
+<!-- Name Management -->
+<script>
+function manage_name(user_id){
+	$.ajax({
+		url: '/handler/name/',
+		data: {
+			'user_id': user_id,
+			'user_name': document.getElementById('username').value
+		},
+		dataType: 'json',
+		success: function (data) { 
+			if (data.status){
+				$("#skip-see-score").fadeOut();
+				$("#save-see-score").fadeIn();
+			} else {
+				$("#save-see-score").fadeOut();
+				$("#skip-see-score").fadeIn();
+			}
+		},
+		error: function(xhr, textStatus, error){
+			console.log(String(error));
+			console.log(String(xhr.statusText));
+			console.log(String(textStatus));
+		}
+	});
+}
+
+function trigger_name_save(){
+	manage_name('{{ user.id }}');
+}
+</script>
+<!-- End name Management -->
+
+<!-- Mobile Management -->
+<script>
+function mobile_check(user_id){
+	$.ajax({
+		url: '/handler/mobile/',
+		data: {
+			'user_id': user_id
+		},
+		dataType: 'json',
+		success: function (data) {
+			if (data.status){
+				// save id
+				localStorage.setItem("user_id", data.user_id);
+			}
+			if (data.has_a_user_name){
+				$("#custom-ending-button").fadeOut();
+				$("#custom-score-button").fadeIn();
+			} else {
+				$("#custom-score-button").fadeOut();
+				$("#custom-ending-button").fadeIn();
+			}
+		},
+		error: function(xhr, textStatus, error){
+			console.log(String(error));
+			console.log(String(xhr.statusText));
+			console.log(String(textStatus));
+		}
+	});
+}
+if (localStorage.user_id) {
+	var passed_id = localStorage.getItem("user_id");
+	mobile_check(passed_id);
+} else {
+	mobile_check('');
+}
+
+</script>
+<!-- End Mobile Management -->
+
+<script>
+function validate_winning_color(div_id){
+	var selected_div = div_id;
+	selected_div= $(selected_div).css('color');
+	if (selected_div == activated_block_color){
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function save_winning_time(){
+	/* Write Winning Time */
+	var victory_time = $("#game-timer").html();
+
+	/* Save Time */
+	manage_level('{{user.id}}', victory_time, '1');
+}
+
+function trigger_victory_scenario(){
+	/* Change to victory color */		
+	for (i = 1; i < 10; i++) { 
+		$("#" + i.toString()).css("color", victory_color);
+		$("#" + i.toString()).removeClass("idPasser");
+	}
+
+	/* Setting Winning Time */
+	$("#winning-game-time").html($("#game-timer").html());
+	$("#time-capture").val($("#game-timer").html());
+
+	/**/
+
+	/* Write Winning Time */
+	var victory_time = $("#game-timer").html();
+	$("#final-winning-time").html(String(victory_time) + " s.");
+
+	/* Hide Maze */
+	$("#level-maze-container").fadeOut();
+
+	/* Hide Timer */
+	$("#game-timer-container").fadeOut();
+
+	/* Adjust View */
+	document.getElementById('page-header').scrollIntoView();
+
+	/* Show Victory */
+	$("#game-completed-block").fadeIn();
+}
+</script>
+
+{% block maze_victory %}
+
+{% endblock %}
+
+<script>
+function activate_winning_condition(x){
+	var selected_div = x;
+	var x = $(selected_div).css('Color');
+
+	if (x == initial_block_color){
+		$(selected_div).css("color", activated_block_color);
+	} else {
+		$(selected_div).css("color", initial_block_color);
+	}
+}
+</script>
+
+{% block maze_logic %}
+
+{% endblock %}
+
+<script>
+$('.idPasser').click(function(){
+    var clickedID = this.id;
+
+	switch_handler(clickedID);
+
+	winning();
+
+});
+</script>
+
+<script>
+/* Game Timer */
+var i = 1;
+var interval = setInterval( increment, 1000);
+function increment(){
+    i = i + 1;
+    document.getElementById("game-timer").innerHTML = i;
+}
+
+var timer_time_saved = 0;
+
+function pause_timer(){
+	clearInterval(interval);
+	timer_time_saved = document.getElementById("game-timer").innerHTML;
+	timer_time_saved = Number(timer_time_saved);
+	$("#paused-time").html(String(timer_time_saved) + " s.");
+}
+
+function resume_timer(){
+	//i = timer_time_saved;
+	interval = setInterval( increment, 1000);
+}
+
+$("#pause-game").on("hidden.bs.modal", function () {
+	clearInterval(interval);
+    resume_timer();
+});
+</script>
+</body>
+</html>

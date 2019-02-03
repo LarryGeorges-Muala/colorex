@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>LeaderBoard | Colorex</title>
+	{% include 'colorex/base/base.html' %}
+</head>
+
+<body>
+
+<style>
+.block-sizes{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid #cccccc;
+	margin: 1% 20%; 
+	display: block;
+	border-radius: 10px;
+	padding: 2% 0;
+}
+
+.block-scores{
+
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid #cccccc;
+	margin: 0%; 
+	display: inline-block;
+	padding: 1% 0;
+}
+
+.block-level{
+	width: 200px;
+	border-radius: 7px 0 0 7px;
+	font-weight: bold;
+	background-color: #b62f2f;
+	color: white;
+}
+
+.block-time{
+	width: 150px;
+	background-color: #ffff99;
+	color: brown;
+}
+
+.block-replay{
+	width: 100px;
+	border-radius: 0 7px 7px 0;
+	background-color: #cc3300;
+	color: gold;
+}
+
+.block-replay a{
+	color: gold;
+}
+
+.block-scores-containers{
+	margin: 2% 0;
+}
+
+
+/* Leaderboard */
+
+.leaderboard {
+
+    -webkit-animation-name: lead; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    animation-name: lead;
+    animation-duration: 10s;
+	animation-iteration-count: infinite;
+	-webkit-transition: color 2s; /* Safari */
+    transition: color 2s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes lead {
+    from {color: gold;}
+    to {color: #ffff99;}
+}
+
+/* Standard syntax */
+@keyframes lead {
+    from {color: gold;}
+    to {color: #ffff99;}
+}
+
+@media screen and (max-width: 900px){
+	.block-sizes{
+		width: 70px;
+		height: 70px;
+		margin: 2%; 
+	}
+	.game-timer-class{
+		position: static !important; 
+	}
+	#victory-block{
+		margin: 5% 10% 0 10% !important;
+	}
+	#victory-firework{
+		right: 0% !important;
+		top: -10px !important;
+	}
+	.table-responsive{
+		margin: 0 !important;
+	}
+}
+</style>
+
+{% include 'colorex/base/colorex_nav.html' %}
+
+<div style="text-align: center; margin: 5% 0 5% 0;">
+	<h2 style="margin: 0 20%; border: 2px solid brown; padding: 1% 2%; border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+	<i style="color: #e6c300;" class="fa fa-trophy"></i> <br>LeaderBoard 
+	</h2>	
+</div>
+
+<div style="text-align: center; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+	<div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+		<br>
+			<div class="table-responsive" style="margin: 0 20%;">          
+			  <table class="table" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+				<tbody>
+				{% for data in all_users reversed %}
+					{% if data.user_name == user.user_name %}
+					  <tr class="success">
+						<td>{{ forloop.counter}}</td>
+						<td style="background-color: #800000; color: white; font-weight: bold;">{{ data.user_name}}</td>
+						<td style="background-color: #b32d00; color: gold; font-weight: bold;"><span class="glyphicon glyphicon-time"></span> {{ data.total_time}}s.</td>
+						<td><i style="color: #e6c300;" class="fa fa-trophy"></i></td>
+					  </tr>
+					{% else %}
+					  <tr>
+						<td>{{ forloop.counter}}</td>
+						<td style="background-color: #800000; color: white; font-weight: bold;">{{ data.user_name}}</td>
+						<td style="background-color: #b32d00; color: gold; font-weight: bold;"><span class="glyphicon glyphicon-time"></span> {{ data.total_time}}s.</td>
+						<td><i style="color: #e6c300;" class="fa fa-trophy"></i></td>
+					  </tr>
+					{% endif %}			
+				{% endfor %}
+				</tbody>
+			  </table>
+			  </div>
+			</div>
+		<br>
+		<br>
+		<div> 
+			<div class="fb-share-button" data-href="http://colorex.herokuapp.com" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcolorex.herokuapp.com%2F&amp;src=sdkpreparse"></a></div>
+		</div>
+		<br>
+		<div style="text-align: center;">
+			<a href="/" class="glyphicon glyphicon-home"></a>
+		</div>
+		<br>
+	</div>
+</div>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=1626868634052841";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+</body>
+</html>

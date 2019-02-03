@@ -1,0 +1,725 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Level 10 | Colorex</title>
+	{% include 'colorex/base/base.html' %}
+</head>
+
+<body>
+<style>
+.block-sizes{
+	width: 50px;
+	height: 50px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid #cccccc;
+	margin: 1%; 
+	display: inline-block;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 900px){
+	.block-sizes{
+		width: 70px;
+		height: 70px;
+		margin: 2%; 
+	}
+	.game-timer-class{
+		position: static !important; 
+	}
+	#victory-block{
+		margin: 5% 10% 0 10% !important;
+	}
+	#victory-firework{
+		right: 0% !important;
+		top: -10px !important;
+	}
+}
+
+@media screen and (max-width: 450px){
+	.block-sizes{
+		width: 50px;
+		height: 50px;
+		margin: 2%; 
+	}
+}
+</style>
+
+{% include 'colorex/base/colorex_nav.html' %}
+
+<div style="text-align: center; margin: 5% 0 5% 0;">
+	<h1 style="width: 200px; margin: auto; border: 2px solid brown; padding: 1% 2%; border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Level 10 - Guitar</h1>
+	<div>
+		<img id="victory-firework" style="display: none; position: absolute; top: 5px; right: 32%; margin: auto;" src="{% static 'colorex/images/fireworks3.gif' %}">
+		<img id="victory-firework-2" style="display: none; position: absolute; top: 5px; left: 32%; margin: auto;" src="{% static 'colorex/images/fireworks1.gif' %}">
+	</div>
+	<div id="victory-block" style="display: none; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color: brown; color: white; margin: 5% 30% 0 30%; padding: 3% 5%; border-radius: 7px;">
+		<h2>Conragtulations, You Won!<h2>
+		<h4> <span style="color: white;" class="glyphicon glyphicon-time"></span> <span id="winning-game-time"></span> s. </h4>
+	</div>
+	<div id="next-level-block" style="display: none;">
+		<br>
+		<form action="{% url 'colorex:level_10' %}" method="POST"> 
+			{% csrf_token %}
+			<input type="hidden" name="time" id="time-capture" style="display: none;" >
+			<a href="/10" class="btn btn-primary">Replay this level <span class="glyphicon glyphicon-repeat"></span></a> 
+			<input style="margin-left: 10px;" type="submit" class="btn btn-danger" name="SCORE" value="See your score"/> 
+			<br>
+			<br>
+			<input type="submit" class="btn btn-info" name="LEVELS" value="See Levels"/>
+		</form>
+		<br>
+		<br>
+	</div>
+</div>
+
+
+
+<div style="text-align: center; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+  <div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  
+	  <div style="padding: 1%;">
+		  <div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		  <div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		  <div id="1" class="block-sizes idPasser"></div>
+
+		  <div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		  <div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+	  </div>
+
+	  <div style="padding: 1%;">
+		  <div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		  <div id="2" class="block-sizes idPasser"></div>
+
+		  <div id="3" class="block-sizes idPasser"></div>
+
+		  <div id="4" class="block-sizes idPasser"></div>
+
+		  <div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+	  </div>
+
+	  <div style="padding: 1%;">
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="5" class="block-sizes idPasser"></div>
+
+		<div id="6" class="block-sizes idPasser"></div>
+
+		<div id="7" class="block-sizes idPasser"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="8" class="block-sizes idPasser"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="9" class="block-sizes idPasser"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="10" class="block-sizes idPasser"></div>
+
+		<div id="11" class="block-sizes idPasser"></div>
+
+		<div id="12" class="block-sizes idPasser"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="13" class="block-sizes idPasser"></div>
+
+		<div id="14" class="block-sizes idPasser"></div>
+
+		<div id="15" class="block-sizes idPasser"></div>
+
+		<div id="16" class="block-sizes idPasser"></div>
+
+		<div id="17" class="block-sizes idPasser"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="18" class="block-sizes idPasser"></div>
+
+		<div id="19" class="block-sizes idPasser"></div>
+
+		<div id="20" class="block-sizes idPasser"></div>
+
+		<div id="21" class="block-sizes idPasser"></div>
+
+		<div id="22" class="block-sizes idPasser"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="23" class="block-sizes idPasser"></div>
+
+		<div id="24" class="block-sizes idPasser"></div>
+
+		<div id="25" class="block-sizes idPasser"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="26" class="block-sizes idPasser"></div>
+
+		<div id="27" class="block-sizes idPasser"></div>
+
+		<div id="28" class="block-sizes idPasser"></div>
+
+		<div id="29" class="block-sizes idPasser"></div>
+
+		<div id="30" class="block-sizes idPasser"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="31" class="block-sizes idPasser"></div>
+
+		<div id="32" class="block-sizes idPasser"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="33" class="block-sizes idPasser"></div>
+
+		<div id="34" class="block-sizes idPasser"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="35" class="block-sizes idPasser"></div>
+
+		<div id="36" class="block-sizes idPasser"></div>
+
+		<div id="37" class="block-sizes idPasser"></div>
+
+		<div id="38" class="block-sizes idPasser"></div>
+
+		<div id="39" class="block-sizes idPasser"></div>
+	</div>
+
+	<div style="padding: 1%;">
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+
+		<div id="40" class="block-sizes idPasser"></div>
+
+		<div id="41" class="block-sizes idPasser"></div>
+
+		<div id="42" class="block-sizes idPasser"></div>
+
+		<div id="" class="block-sizes idPasser" style="visibility: hidden; background-color: rgb(255, 255, 0);"></div>
+	</div>
+
+  </div>
+  
+</div>
+
+<div id="game-timer-container" style="">
+	<br>
+	<h5 class="game-timer-class" style="background-color: white; position: relative; top: -320px; right: 60px; float: right; text-align: center; width: 150px; border-radius: 0 10px 0 10px; border: 1px solid brown; padding: 1%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+		<span style="vertical-align: middle; color: brown;" class="glyphicon glyphicon-time"></span> <span id="game-timer"></span> s. <a style="float: right; text-decoration: none; color: brown; font-size: 24px;" href="/10" class="fa fa-undo"></a>
+	</h5>
+</div>
+
+<script>
+function winning(){
+
+  var winning_color = "rgb(255, 255, 0)";
+  
+  var victory_color = "rgb(165, 42, 42)";
+  
+  var selected_div_1 = "#1";
+  selected_div_1 = $(selected_div_1).css('backgroundColor');
+  
+  var selected_div_2 = "#2";
+  selected_div_2 = $(selected_div_2).css('backgroundColor');
+  
+  var selected_div_3 = "#3";
+  selected_div_3 = $(selected_div_3).css('backgroundColor');
+  
+  var selected_div_4 = "#4";
+  selected_div_4 = $(selected_div_4).css('backgroundColor');
+  
+  var selected_div_5 = "#5";
+  selected_div_5 = $(selected_div_5).css('backgroundColor');
+  
+  var selected_div_6 = "#6";
+  selected_div_6 = $(selected_div_6).css('backgroundColor');
+  
+  var selected_div_7 = "#7";
+  selected_div_7 = $(selected_div_7).css('backgroundColor');
+  
+  var selected_div_8 = "#8";
+  selected_div_8 = $(selected_div_8).css('backgroundColor');
+  
+  var selected_div_9 = "#9";
+  selected_div_9 = $(selected_div_9).css('backgroundColor');
+
+  var selected_div_10 = "#10";
+  selected_div_10 = $(selected_div_10).css('backgroundColor');
+
+  var selected_div_11 = "#11";
+  selected_div_11 = $(selected_div_11).css('backgroundColor');
+
+  var selected_div_12 = "#12";
+  selected_div_12 = $(selected_div_12).css('backgroundColor');
+
+  var selected_div_13 = "#13";
+  selected_div_13 = $(selected_div_13).css('backgroundColor');
+
+  var selected_div_14 = "#14";
+  selected_div_14 = $(selected_div_14).css('backgroundColor');
+
+  var selected_div_15 = "#15";
+  selected_div_15 = $(selected_div_15).css('backgroundColor');
+
+  var selected_div_16 = "#16";
+  selected_div_16 = $(selected_div_16).css('backgroundColor');
+
+  var selected_div_17 = "#17";
+  selected_div_17 = $(selected_div_17).css('backgroundColor');
+
+  var selected_div_18 = "#18";
+  selected_div_18 = $(selected_div_18).css('backgroundColor');
+
+  var selected_div_19 = "#19";
+  selected_div_19 = $(selected_div_19).css('backgroundColor');
+
+  var selected_div_20 = "#20";
+  selected_div_20 = $(selected_div_20).css('backgroundColor');
+
+  var selected_div_21 = "#21";
+  selected_div_21 = $(selected_div_21).css('backgroundColor');
+
+  var selected_div_22 = "#22";
+  selected_div_22 = $(selected_div_22).css('backgroundColor');
+
+  var selected_div_23 = "#23";
+  selected_div_23 = $(selected_div_23).css('backgroundColor');
+
+  var selected_div_24 = "#24";
+  selected_div_24 = $(selected_div_24).css('backgroundColor');
+
+  var selected_div_25 = "#25";
+  selected_div_25 = $(selected_div_25).css('backgroundColor');
+
+  var selected_div_26 = "#26";
+  selected_div_26 = $(selected_div_26).css('backgroundColor');
+
+  var selected_div_27 = "#27";
+  selected_div_27 = $(selected_div_27).css('backgroundColor');
+
+  var selected_div_28 = "#28";
+  selected_div_28 = $(selected_div_28).css('backgroundColor');
+
+  var selected_div_29 = "#29";
+  selected_div_29 = $(selected_div_29).css('backgroundColor');
+
+  var selected_div_30 = "#30";
+  selected_div_30 = $(selected_div_30).css('backgroundColor');
+
+  var selected_div_31 = "#31";
+  selected_div_31 = $(selected_div_31).css('backgroundColor');
+
+  var selected_div_32 = "#32";
+  selected_div_32 = $(selected_div_32).css('backgroundColor');
+
+  var selected_div_33 = "#33";
+  selected_div_33 = $(selected_div_33).css('backgroundColor');
+
+  var selected_div_34 = "#34";
+  selected_div_34 = $(selected_div_34).css('backgroundColor');
+
+  var selected_div_35 = "#35";
+  selected_div_35 = $(selected_div_35).css('backgroundColor');
+
+  var selected_div_36 = "#36";
+  selected_div_36 = $(selected_div_36).css('backgroundColor');
+
+  var selected_div_37 = "#37";
+  selected_div_37 = $(selected_div_37).css('backgroundColor');
+
+  var selected_div_38 = "#38";
+  selected_div_38 = $(selected_div_38).css('backgroundColor');
+
+  var selected_div_39 = "#39";
+  selected_div_39 = $(selected_div_39).css('backgroundColor');
+
+  var selected_div_40 = "#40";
+  selected_div_40 = $(selected_div_40).css('backgroundColor');
+
+  var selected_div_41 = "#41";
+  selected_div_41 = $(selected_div_41).css('backgroundColor');
+
+  var selected_div_42 = "#42";
+  selected_div_42 = $(selected_div_42).css('backgroundColor');
+  
+  if ( selected_div_1 == winning_color && selected_div_2 == winning_color && selected_div_3 == winning_color && selected_div_4 == winning_color && selected_div_5 == winning_color && selected_div_6 == winning_color && selected_div_7 == winning_color && selected_div_8 == winning_color && selected_div_9 == winning_color && selected_div_10 == winning_color && selected_div_11 == winning_color && selected_div_12 == winning_color && selected_div_13 == winning_color && selected_div_14 == winning_color && selected_div_15 == winning_color && selected_div_16 == winning_color && selected_div_17 == winning_color && selected_div_18 == winning_color && selected_div_19 == winning_color && selected_div_20 == winning_color && selected_div_21 == winning_color && selected_div_22 == winning_color && selected_div_23 == winning_color && selected_div_24 == winning_color && selected_div_25 == winning_color && selected_div_26 == winning_color && selected_div_27 == winning_color && selected_div_28 == winning_color && selected_div_29 == winning_color && selected_div_30 == winning_color && selected_div_31 == winning_color && selected_div_32 == winning_color && selected_div_33 == winning_color && selected_div_34 == winning_color && selected_div_35 == winning_color && selected_div_36 == winning_color && selected_div_37 == winning_color && selected_div_38 == winning_color && selected_div_39 == winning_color && selected_div_40 == winning_color && selected_div_41 == winning_color && selected_div_42 == winning_color){
+	  
+	  /* Fade in victory block */
+	  $("#victory-block").fadeIn();
+	  
+	  $("#next-level-block").fadeIn();
+	  
+	  $("#victory-firework").fadeIn();
+	  
+	  /* Fade out game timer */
+	  $("#game-timer-container").fadeOut();
+	  
+	  /* Setting Winning Time */
+	  $("#winning-game-time").html($("#game-timer").html());
+  
+	  /* Change to victory color */		
+	  for (i = 1; i < 43; i++) { 
+		  $("#" + i.toString()).css("background-color", "brown");
+		  $("#" + i.toString()).removeClass("idPasser");
+	  }
+	  
+  } else {
+	  
+  }
+}
+
+function match_blocks_of(z){
+  var selected_div = z;
+  var x = $(selected_div).css('backgroundColor');
+  if (x == "rgb(255, 255, 0)"){
+	  $(selected_div).css("background-color", "rgba(0, 0, 0, 0)");
+  } else {
+	  $(selected_div).css("background-color", "yellow");
+  }
+}
+
+$('.idPasser').click(function(){
+  var clickedID = this.id;
+
+switch (clickedID) {
+
+  case "1":
+	  match_blocks_of('#1');
+	  match_blocks_of('#3');
+	  break;
+
+  case "2":
+	  match_blocks_of('#2');
+	  match_blocks_of('#3');
+	  match_blocks_of('#5');
+	  break;
+
+  case "3":
+	  match_blocks_of('#3');
+	  match_blocks_of('#1');
+	  match_blocks_of('#2');
+	  match_blocks_of('#4');
+	  match_blocks_of('#6');
+	  break;
+	  
+  case "4":
+	  match_blocks_of('#4');
+	  match_blocks_of('#3');
+	  match_blocks_of('#7');
+	  break;
+	  
+  case "5":
+	  match_blocks_of('#5');
+	  match_blocks_of('#2');
+	  match_blocks_of('#6');
+	  break;
+	  
+  case  "6":
+	  match_blocks_of('#6');
+	  match_blocks_of('#3');
+	  match_blocks_of('#5');
+	  match_blocks_of('#7');
+	  match_blocks_of('#8');
+	  break;
+	  
+  case  "7":
+	  match_blocks_of('#7');
+	  match_blocks_of('#4');
+	  match_blocks_of('#6');
+	  break;
+	  
+  case  "8":
+	  match_blocks_of('#8');
+	  match_blocks_of('#6');
+	  match_blocks_of('#9');
+	  break;
+	  
+  case  "9":
+	  match_blocks_of('#9');
+	  match_blocks_of('#8');
+	  match_blocks_of('#11');
+	  break;
+
+  case  "10":
+	  match_blocks_of('#10');
+	  match_blocks_of('#11');
+	  match_blocks_of('#14');
+	  break;
+
+  case  "11":
+	  match_blocks_of('#11');
+	  match_blocks_of('#9');
+	  match_blocks_of('#10');
+	  match_blocks_of('#12');
+	  match_blocks_of('#15');
+	  break;
+
+  case  "12":
+	  match_blocks_of('#12');
+	  match_blocks_of('#11');
+	  match_blocks_of('#16');
+	  break;
+
+  case  "13":
+	  match_blocks_of('#13');
+	  match_blocks_of('#14');
+	  match_blocks_of('#18');
+	  break;
+
+  case  "14":
+	  match_blocks_of('#14');
+	  match_blocks_of('#10');
+	  match_blocks_of('#13');
+	  match_blocks_of('#15');
+	  match_blocks_of('#19');
+	  break;
+
+  case  "15":
+	  match_blocks_of('#15');
+	  match_blocks_of('#11');
+	  match_blocks_of('#14');
+	  match_blocks_of('#16');
+	  match_blocks_of('#20');
+	  break;
+
+  case  "16":
+	  match_blocks_of('#16');
+	  match_blocks_of('#12');
+	  match_blocks_of('#15');
+	  match_blocks_of('#17');
+	  match_blocks_of('#21');
+	  break;
+
+  case  "17":
+	  match_blocks_of('#17');
+	  match_blocks_of('#16');
+	  match_blocks_of('#22');
+	  break;
+
+  case  "18":
+	  match_blocks_of('#18');
+	  match_blocks_of('#13');
+	  match_blocks_of('#19');
+	  break;
+
+  case  "19":
+	  match_blocks_of('#19');
+	  match_blocks_of('#14');
+	  match_blocks_of('#18');
+	  match_blocks_of('#20');
+	  match_blocks_of('#23');
+	  break;
+
+  case  "20":
+	  match_blocks_of('#20');
+	  match_blocks_of('#15');
+	  match_blocks_of('#19');
+	  match_blocks_of('#21');
+	  match_blocks_of('#24');
+	  break;
+
+  case  "21":
+	  match_blocks_of('#21');
+	  match_blocks_of('#16');
+	  match_blocks_of('#20');
+	  match_blocks_of('#22');
+	  match_blocks_of('#25');
+	  break;
+
+  case  "22":
+	  match_blocks_of('#22');
+	  match_blocks_of('#17');
+	  match_blocks_of('#21');
+	  break;
+
+  case  "23":
+	  match_blocks_of('#23');
+	  match_blocks_of('#19');
+	  match_blocks_of('#24');
+	  match_blocks_of('#27');
+	  break;
+
+  case  "24":
+	  match_blocks_of('#24');
+	  match_blocks_of('#20');
+	  match_blocks_of('#23');
+	  match_blocks_of('#25');
+	  match_blocks_of('#28');
+	  break;
+
+  case  "25":
+	  match_blocks_of('#25');
+	  match_blocks_of('#21');
+	  match_blocks_of('#24');
+	  match_blocks_of('#29');
+	  break;
+
+  case  "26":
+	  match_blocks_of('#26');
+	  match_blocks_of('#27');
+	  match_blocks_of('#31');
+	  break;
+
+  case  "27":
+	  match_blocks_of('#27');
+	  match_blocks_of('#23');
+	  match_blocks_of('#26');
+	  match_blocks_of('#28');
+	  match_blocks_of('#32');
+	  break;
+
+  case  "28":
+	  match_blocks_of('#28');
+	  match_blocks_of('#24');
+	  match_blocks_of('#27');
+	  match_blocks_of('#29');
+	  break;
+
+  case  "29":
+	  match_blocks_of('#29');
+	  match_blocks_of('#25');
+	  match_blocks_of('#28');
+	  match_blocks_of('#30');
+	  break;
+
+  case  "30":
+	  match_blocks_of('#30');
+	  match_blocks_of('#29');
+	  match_blocks_of('#34');
+	  break;
+
+  case  "31":
+	  match_blocks_of('#31');
+	  match_blocks_of('#26');
+	  match_blocks_of('#32');
+	  match_blocks_of('#35');
+	  break;
+
+  case  "32":
+	  match_blocks_of('#32');
+	  match_blocks_of('#27');
+	  match_blocks_of('#31');
+	  match_blocks_of('#36');
+	  break;
+
+  case  "33":
+	  match_blocks_of('#33');
+	  match_blocks_of('#29');
+	  match_blocks_of('#34');
+	  match_blocks_of('#38');
+	  break;
+
+  case  "34":
+	  match_blocks_of('#34');
+	  match_blocks_of('#30');
+	  match_blocks_of('#33');
+	  match_blocks_of('#39');
+	  break;
+
+  case  "35":
+	  match_blocks_of('#35');
+	  match_blocks_of('#31');
+	  match_blocks_of('#36');
+	  break;
+
+  case  "36":
+	  match_blocks_of('#36');
+	  match_blocks_of('#32');
+	  match_blocks_of('#35');
+	  match_blocks_of('#37');
+	  match_blocks_of('#40');
+	  break;
+
+  case  "37":
+	  match_blocks_of('#37');
+	  match_blocks_of('#36');
+	  match_blocks_of('#38');
+	  match_blocks_of('#41');
+	  break;
+
+  case  "38":
+	  match_blocks_of('#38');
+	  match_blocks_of('#33');
+	  match_blocks_of('#37');
+	  match_blocks_of('#39');
+	  match_blocks_of('#42');
+	  break;
+
+  case  "39":
+	  match_blocks_of('#39');
+	  match_blocks_of('#34');
+	  match_blocks_of('#38');
+	  break;
+
+  case  "40":
+	  match_blocks_of('#40');
+	  match_blocks_of('#36');
+	  match_blocks_of('#41');
+	  break;
+
+  case  "41":
+	  match_blocks_of('#41');
+	  match_blocks_of('#37');
+	  match_blocks_of('#40');
+	  match_blocks_of('#42');
+	  break;
+
+  case  "42":
+	  match_blocks_of('#42');
+	  match_blocks_of('#38');
+	  match_blocks_of('#41');
+	  break;
+}
+
+winning();
+
+});
+
+/* Game Timer */
+var i = 1;
+var interval = setInterval( increment, 1000);
+function increment(){
+  i = i + 1;
+  document.getElementById("game-timer").innerHTML = i;
+}
+</script>
+
+</body>
+</html>

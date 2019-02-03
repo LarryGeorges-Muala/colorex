@@ -1,0 +1,344 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Levels | Colorex</title>
+	{% include 'colorex/base/base.html' %}
+</head>
+
+<body>
+
+<style>
+.block-sizes{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid #cccccc;
+	margin: 1% 20%; 
+	display: block;
+	border-radius: 10px;
+	padding: 2% 0;
+}
+
+.block-scores{
+
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid #cccccc;
+	margin: 0%; 
+	display: inline-block;
+	padding: 1% 0;
+}
+
+.block-level{
+	width: 100px;
+	border-radius: 7px 0 0 7px;
+	font-weight: bold;
+	background-color: #b62f2f;
+	color: white;
+}
+
+.block-time{
+	width: 200px;
+	background-color: #ffff99;
+	color: brown;
+	font-weight: bold;
+}
+
+.block-replay{
+	width: 100px;
+	border-radius: 0 7px 7px 0;
+	background-color: #cc3300;
+	color: gold;
+}
+
+.block-replay a{
+	color: gold;
+}
+
+.block-scores-containers{
+	margin: 2% 0;
+}
+
+.block-advanced{
+	height: 50px;
+	vertical-align: top;
+}
+
+
+@media screen and (max-width: 900px){
+	.block-sizes{
+		width: 70px;
+		height: 70px;
+		margin: 2%; 
+	}
+	
+	.block-level{
+		width: 50px;
+		border-radius: 7px 0 0 7px;
+		font-weight: bold;
+		background-color: #b62f2f;
+		color: white;
+	}
+
+	.block-time{
+		width: 100px;
+		background-color: #ffff99;
+		color: brown;
+		font-weight: bold;
+	}
+
+	.block-replay{
+		width: 50px;
+		border-radius: 0 7px 7px 0;
+		background-color: #cc3300;
+		color: gold;
+	}
+	
+	.block-scores-containers{
+		margin: 4% 0;
+	}
+
+	.block-advanced-icon{
+		top: 10px !important;
+	}
+
+	.uniform-naming{
+		display: block;
+	}
+
+}
+</style>
+
+{% include 'colorex/base/colorex_nav.html' %}
+
+<div style="text-align: center; margin: 5% 0 5% 0;">
+	
+	<h1 style="margin: 0 20%; border-radius: 100%; padding: 1% 2%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+	 Colorex 
+	</h1>
+	
+</div>
+
+
+
+<div style="text-align: center; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+	
+	
+	<div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+	
+		<br>
+		
+		<div class="block-scores-containers">
+			<div class="block-scores block-level" > <i class="glyphicon glyphicon-star"></i> </div>
+
+			<div class="block-scores block-time" > Level 1 </div>
+
+			<div class="block-scores block-replay" > <a href="/1"><span class="glyphicon glyphicon-play"></span></a> </div>
+		</div>
+		
+		<div class="block-scores-containers">
+		{% if user.level_1_unlock %}
+			<div class="block-scores block-level" > <i class="glyphicon glyphicon-star"></i> </div>
+
+			<div class="block-scores block-time" > Level 2 </div>
+
+			<div class="block-scores block-replay" > <a href="/2"><span class="glyphicon glyphicon-play"></span></a> </div>
+		{% else %}
+			<div class="block-scores block-level" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock"></i> </div>
+
+			<div class="block-scores block-time" style="background-color: #ffffe6;"> Level 2 </div>
+
+			<div class="block-scores block-replay" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-play"></span></a> </div>
+		{% endif %}
+		</div>
+		
+		<div class="block-scores-containers">
+		{% if user.level_2_unlock %}
+			<div class="block-scores block-level" > <i class="glyphicon glyphicon-star"></i> </div>
+
+			<div class="block-scores block-time" > Level 3 </div>
+
+			<div class="block-scores block-replay" > <a href="/3"><span class="glyphicon glyphicon-play"></span></a> </div>
+		{% else %}
+			<div class="block-scores block-level" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock"></i> </div>
+
+			<div class="block-scores block-time" style="background-color: #ffffe6;"> Level 3 </div>
+
+			<div class="block-scores block-replay" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-play"></span></a> </div>
+		{% endif %}
+		</div>
+		
+		<div class="block-scores-containers">
+		{% if user.level_3_unlock %}
+			<div class="block-scores block-level" > <i class="glyphicon glyphicon-star"></i> </div>
+
+			<div class="block-scores block-time" > Level 4 </div>
+
+			<div class="block-scores block-replay" > <a href="/4"><span class="glyphicon glyphicon-play"></span></a> </div>
+		
+		{% else %}
+			<div class="block-scores block-level" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock"></i> </div>
+
+			<div class="block-scores block-time" style="background-color: #ffffe6;"> Level 4 </div>
+
+			<div class="block-scores block-replay" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-play"></span></a> </div>
+		{% endif %}
+		</div>
+		
+		<div class="block-scores-containers">
+		{% if user.level_4_unlock %}
+			<div class="block-scores block-level" > <i class="glyphicon glyphicon-star"></i> </div>
+
+			<div class="block-scores block-time" > Level 5 </div>
+
+			<div class="block-scores block-replay" > <a href="/5"><span class="glyphicon glyphicon-play"></span></a> </div>
+		
+		{% else %}
+			<div class="block-scores block-level" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock"></i> </div>
+
+			<div class="block-scores block-time" style="background-color: #ffffe6;"> Level 5 </div>
+
+			<div class="block-scores block-replay" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-play"></span></a> </div>
+		{% endif %}
+		</div>
+		
+		<hr>
+		
+		<div class="block-scores-containers">
+		{% if user.level_5_unlock %}
+			<div class="block-scores block-level" > <a style="color: white;" href="/score"><i class="glyphicon glyphicon-star"></i></a> </div>
+
+			<div class="block-scores block-time" > <a style="color: brown;" href="/score">Score Board</a> </div>
+
+			<div class="block-scores block-replay" > <a href="/score"><span class="fa fa-trophy"></span></a> </div>
+		
+		{% else %}
+			<div class="block-scores block-level" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock"></i> </div>
+
+			<div class="block-scores block-time" style="background-color: #ffffe6;"> Score Board </div>
+
+			<div class="block-scores block-replay" style="background-color: #ff8c66;"> <a><span class="fa fa-trophy"></span></a> </div>
+		{% endif %}
+		</div>
+		
+		<hr>
+		
+		<div class="block-scores-containers">
+		{% if user.level_5_unlock %}
+			<div class="block-scores block-level" > <a style="color: white;" href="/leaderboard"><i class="fa fa-diamond"></i></a> </div>
+
+			<div class="block-scores block-time" > <a style="color: brown;" href="/leaderboard">Leader Board</a> </div>
+
+			<div class="block-scores block-replay" > <a href="/leaderboard"><span class="fa fa-diamond"></span></a> </div>
+		
+		{% else %}
+			<div class="block-scores block-level" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock"></i> </div>
+
+			<div class="block-scores block-time" style="background-color: #ffffe6;"> Leader Board </div>
+
+			<div class="block-scores block-replay" style="background-color: #ff8c66;"> <a><span class="fa fa-trophy"></span></a> </div>
+		{% endif %}
+		</div>
+
+		<hr>
+
+		<h3 style="color: darkgray;">Advanced Levels</h3>
+
+		<div class="block-scores-containers">
+		{% if user.level_5_unlock %}
+			<div class="block-scores block-level block-advanced" > <i class="glyphicon glyphicon-star block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" > Level 6 - Pyramid </div>
+
+			<div class="block-scores block-replay block-advanced" > <a href="/6"><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		
+		{% else %}
+			<div class="block-scores block-level block-advanced" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" style="background-color: #ffffe6;"> Level 6 - Pyramid </div>
+
+			<div class="block-scores block-replay block-advanced" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		{% endif %}
+		</div>
+
+		<div class="block-scores-containers">
+		{% if user.level_7_unlock %}
+			<div class="block-scores block-level block-advanced" > <i class="glyphicon glyphicon-star block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" > Level 7 - Losange </div>
+
+			<div class="block-scores block-replay block-advanced" > <a href="/7"><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		
+		{% else %}
+			<div class="block-scores block-level block-advanced" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" style="background-color: #ffffe6;"> Level 7 - Losange </div>
+
+			<div class="block-scores block-replay block-advanced" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		{% endif %}
+		</div>
+
+		<div class="block-scores-containers">
+		{% if user.level_8_unlock %}
+			<div class="block-scores block-level block-advanced" > <i class="glyphicon glyphicon-star block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" > Level 8 - <span class="uniform-naming">Earth</span> </div>
+
+			<div class="block-scores block-replay block-advanced" > <a href="/8"><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		
+		{% else %}
+			<div class="block-scores block-level block-advanced" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" style="background-color: #ffffe6;"> Level 8 - <span class="uniform-naming">Earth</span> </div>
+
+			<div class="block-scores block-replay block-advanced" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		{% endif %}
+		</div>
+
+		<div class="block-scores-containers">
+		{% if user.level_9_unlock %}
+			<div class="block-scores block-level block-advanced" > <i class="glyphicon glyphicon-star block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" > Level 9 - <span class="uniform-naming">Africa</span> </div>
+
+			<div class="block-scores block-replay block-advanced" > <a href="/9"><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		
+		{% else %}
+			<div class="block-scores block-level block-advanced" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" style="background-color: #ffffe6;"> Level 9 - <span class="uniform-naming">Africa</span> </div>
+
+			<div class="block-scores block-replay block-advanced" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		{% endif %}
+		</div>
+
+		<div class="block-scores-containers">
+		{% if user.level_10_unlock %}
+			<div class="block-scores block-level block-advanced" > <i class="glyphicon glyphicon-star block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" > Level 10 - Guitar </div>
+
+			<div class="block-scores block-replay block-advanced" > <a href="/10"><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		
+		{% else %}
+			<div class="block-scores block-level block-advanced" style="background-color: #f5d6d6;"> <i class="glyphicon glyphicon-lock block-advanced-icon"></i> </div>
+
+			<div class="block-scores block-time block-advanced" style="background-color: #ffffe6;"> Level 10 - Guitar </div>
+
+			<div class="block-scores block-replay block-advanced" style="background-color: #ff8c66;"> <a><span class="glyphicon glyphicon-play block-advanced-icon"></span></a> </div>
+		{% endif %}
+		</div>
+
+		<br>
+		
+		<br>
+		
+		<div style="text-align: center;">
+			<a href="/" class="glyphicon glyphicon-home"></a>
+		</div>
+	
+	</div>
+	
+</div>
+
+
+
