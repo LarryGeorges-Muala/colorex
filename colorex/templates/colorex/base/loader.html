@@ -1,0 +1,45 @@
+{% load static %}
+
+<style>
+.colorex-loader-overlay{z-index: 1050; opacity: 0; -webkit-transition: opacity 1s; transition: opacity 1s;}
+.colorex-loader-container{z-index: 1050; top: 15%; width: 96%; opacity: 0; -webkit-transition: opacity 1s; transition: opacity 1s;}
+.colorex-loader-image{z-index: 1050; width: 400px;}
+@media screen and (max-width: 900px){ 
+    .colorex-loader-container{width: 100%;}
+}
+@media screen and (max-width: 399px){ 
+    .colorex-loader-container{top: 22%;}
+    .colorex-loader-image{width: 293px;}
+}
+</style>
+<script>
+function display_colorex_loader(){
+    try {
+        document.getElementsByTagName('body')[0].style.backgroundColor = 'rgba(244, 245, 246, 1)';
+        document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+    } catch(err) {}
+    document.getElementById('colorex-loader-overlay').style.display = 'block';
+    document.getElementById('colorex-loader-overlay').style.opacity = '1';
+    document.getElementById('colorex-loader-container').style.display = 'block';
+    document.getElementById('colorex-loader-container').style.opacity = '1';
+}
+function hide_colorex_loader(){
+    try {
+        document.getElementsByTagName('body')[0].style.backgroundColor = 'white';
+        document.getElementsByTagName('body')[0].style.overflow = 'visible';
+    } catch(err) {}
+    document.getElementById('colorex-loader-overlay').style.display = 'none';
+    document.getElementById('colorex-loader-overlay').style.opacity = '0';
+    document.getElementById('colorex-loader-container').style.display = 'none';
+    document.getElementById('colorex-loader-container').style.opacity = '0';
+}
+</script>
+<div class="colorex-loader-overlay" id="colorex-loader-overlay" style="display: none; position: fixed; width: 100%; height: 100%; top: 0; bottom: 0; right: 0; left: 0; background-color: rgba(244, 245, 246, 1);"></div>
+<div class="colorex-loader-container" id="colorex-loader-container" style="display: none; position: fixed; text-align: center;">
+    <img src="{% static 'colorex/images/loader-2.gif' %}" class="colorex-loader-image" style="background-color: rgba(244, 245, 246, 1);">
+</div>
+
+<script>
+display_colorex_loader();
+window.onload = function () { hide_colorex_loader(); }
+</script>
